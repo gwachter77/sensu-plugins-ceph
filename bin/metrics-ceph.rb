@@ -80,6 +80,7 @@ class CephMetrics < Sensu::Plugin::Metric::CLI::Graphite
       cmd += config[:keyring] if config[:keyring]
       cmd += config[:monitor] if config[:monitor]
       cmd += config[:name] if config[:name]
+      cmd += ' 2>/dev/null'
       Timeout.timeout(config[:timeout]) do
         pipe = IO.popen(cmd)
         Process.wait(pipe.pid)

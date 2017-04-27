@@ -71,7 +71,7 @@ class CephOsdMetrics < Sensu::Plugin::Metric::CLI::Graphite
   def run
     # #YELLOW
     Dir.glob(config[:pattern]).each do |socket|
-      data = `ceph --admin-daemon #{socket} perf dump`
+      data = `ceph --admin-daemon #{socket} perf dump 2>/dev/null`
       if $CHILD_STATUS.exitstatus == 0
         # Left side of wildcard
         strip1 = config[:pattern].match(/^.*\*/).to_s.delete('*')
